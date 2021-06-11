@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'users',
     'drugapp',
 ]
@@ -78,12 +79,12 @@ WSGI_APPLICATION = 'dtbank.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'drugdb',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'USER': 'mysql',
+        'PASSWORD': 'password',
         'HOST': 'db',
-        'PORT': 5432,
+        'PORT': 3306,
     }
 }
 
