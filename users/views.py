@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .database import check_creditentials, return_users
+from .database import check_credentials, return_users
 
 
 def login(request):
@@ -9,4 +9,3 @@ def login(request):
         users = return_users()
         users_dict = {'user_list': users}
         return render(request, 'users/login.html', users_dict)
-        
