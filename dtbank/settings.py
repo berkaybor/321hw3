@@ -81,7 +81,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'drugdb',
-        'USER': 'mysql',
+        'USER': 'root',
         'PASSWORD': 'password',
         'HOST': 'db',
         'PORT': 3306,
