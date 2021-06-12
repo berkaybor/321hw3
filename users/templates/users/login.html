@@ -11,10 +11,7 @@
         <div class="form-group">
             <button class="btn btn-outline-info" type="submit">Login</button>
         </div>
-        {% for u in user_list %}
-          <h1>{{ u.username }}, {{ u.institution }}, {{ u.password }}</h1>
-        {% endfor %}
-        {{ user_logged }}
+        {{ msg }}
     </form>
   </div>
 {% endblock content %}
