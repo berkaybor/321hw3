@@ -1,0 +1,12 @@
+{% extends "drugapp/base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <h1>Details of {{ drug_name }}</h1>
+
+    <br>
+
+    <p>{{ drugbank_id }}, {{ drug_name }}, {{ description }}</p>
+
+
+{% endblock content %}

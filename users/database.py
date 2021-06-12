@@ -19,6 +19,7 @@ def check_credentials_db_manager(username, password):
             return True
         return False
 
+
 def return_users():
     stmt = 'SELECT * FROM users;'
     cursor = connection.cursor()
