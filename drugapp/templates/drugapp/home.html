@@ -1,4 +1,40 @@
 {% extends "drugapp/base.html" %}
 {% block content %}
-  <h1>home.html</h1>
+
+  <p>{{ request.session.user_logged_in }}</p>
+  <p>{{ request.session.database_manager_logged_in }}</p>
+  {% if request.session.user_logged_in %}
+    <h1>Logged in as user</h1>
+    <hr>
+    <a href="#" type="button" class="btn btn-outline-dark btn-block">View all drugs</a>
+    <button type="button" class="btn btn-outline-dark btn-block">View all interactions of a specific drug</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View all side effects of a specific drug</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View all interacting targets of a specific drug</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View interacting drugs of a specific protein</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View drugs that affect the same protein</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View proteins that bind the same drug</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View drugs that have a specific side effect</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View the drug(s) with the least amount of side effects that interact with a specific protein</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View the DOI of papers and contributors</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View rankings of institutes according to their total scores (Decreasing order)</button>
+    <button type="button" class="btn btn-outline-dark btn-block">Filter interacting targets of a specific drug</button>
+
+  {% elif request.session.database_manager_logged_in %}
+    <h1>Logged in as db manager</h1>
+    <hr>
+    <a href="{% url 'add-user' %}" type="button" class="btn btn-outline-dark btn-block">Add new user</a>
+    <button type="button" class="btn btn-outline-dark btn-block">Update drugs using Drugbank IDs</button>
+    <button type="button" class="btn btn-outline-dark btn-block">Delete drugs using Drugbank IDs</button>
+    <button type="button" class="btn btn-outline-dark btn-block">Update contributors using Reaction IDs</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View all drugs listed in DrugBank</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View all proteins listed in UniProt</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View all side effects listed in SIDER</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View all drug - target interactions</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View all papers and their contributors listed in BindingDB</button>
+    <button type="button" class="btn btn-outline-dark btn-block">View all users in DTBank</button>
+
+  {% else %}
+    <h1>Please log in</h1>
+  {% endif %}
+  
 {% endblock content %}
