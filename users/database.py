@@ -11,7 +11,6 @@ def return_users():
     cursor = connection.cursor()
     cursor.execute(stmt)
     tmp = cursor.fetchall()
-    print(tmp)
     users = []
     for u in tmp:
         x = {"username":u[0], "institution":u[1], "password":u[2]}
