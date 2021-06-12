@@ -9,9 +9,9 @@
     <h1>Logged in as user</h1>
     <hr>
     <a href="#" type="button" class="btn btn-outline-dark btn-block">View all drugs</a>
-    <button type="button" class="btn btn-outline-dark btn-block">View all interactions of a specific drug</button>
-    <button type="button" class="btn btn-outline-dark btn-block">View all side effects of a specific drug</button>
-    <button type="button" class="btn btn-outline-dark btn-block">View all interacting targets of a specific drug</button>
+    <a href="{% url 'drug-interactions' %}" type="button" type="button" class="btn btn-outline-dark btn-block">View all interactions of a specific drug</a>
+    <a href="{% url 'side-effects' %}" type="button" class="btn btn-outline-dark btn-block">View all side effects of a specific drug</a>
+    <a href="{% url 'interacting-targets' %}" type="button" class="btn btn-outline-dark btn-block">View all interacting targets of a specific drug</a>
     <button type="button" class="btn btn-outline-dark btn-block">View interacting drugs of a specific protein</button>
     <button type="button" class="btn btn-outline-dark btn-block">View drugs that affect the same protein</button>
     <button type="button" class="btn btn-outline-dark btn-block">View proteins that bind the same drug</button>
@@ -26,14 +26,15 @@
     <hr>
     <a href="{% url 'add-user' %}" type="button" class="btn btn-outline-dark btn-block">Add new user</a>
     <a href="{% url 'update-reaction-affinity' %}" type="button" class="btn btn-outline-dark btn-block">Update reaction affinity using Reaction IDs</a>
-    <button type="button" class="btn btn-outline-dark btn-block">Delete drugs using DrugBank IDs</button>
-    <button type="button" class="btn btn-outline-dark btn-block">Update contributors using Reaction IDs</button>
-    <button type="button" class="btn btn-outline-dark btn-block">View all drugs listed in DrugBank</button>
-    <button type="button" class="btn btn-outline-dark btn-block">View all proteins listed in UniProt</button>
-    <button type="button" class="btn btn-outline-dark btn-block">View all side effects listed in SIDER</button>
-    <button type="button" class="btn btn-outline-dark btn-block">View all drug - target interactions</button>
-    <button type="button" class="btn btn-outline-dark btn-block">View all papers and their contributors listed in BindingDB</button>
-    <button type="button" class="btn btn-outline-dark btn-block">View all users in DTBank</button>
+    <a href="{% url 'delete-drug' %}" type="button" class="btn btn-outline-dark btn-block">Delete drugs using DrugBank IDs</a>
+    <a href="{% url 'delete-protein' %}" type="button" class="btn btn-outline-dark btn-block">Delete proteins using UniProt IDs</a>
+    <a href="#" type="button" class="btn btn-outline-dark btn-block">Update contributors using Reaction IDs</a>
+    <a href="#" type="button" class="btn btn-outline-dark btn-block">View all drugs listed in DrugBank</a>
+    <a href="#" type="button" class="btn btn-outline-dark btn-block">View all proteins listed in UniProt</a>
+    <a href="#" type="button" class="btn btn-outline-dark btn-block">View all side effects listed in SIDER</a>
+    <a href="#" type="button" class="btn btn-outline-dark btn-block">View all drug - target interactions</a>
+    <a href="#" type="button" class="btn btn-outline-dark btn-block">View all papers and their contributors listed in BindingDB</a>
+    <a href="#" type="button" class="btn btn-outline-dark btn-block">View all users in DTBank</a>
 
   {% else %}
     <h1>Please log in</h1>

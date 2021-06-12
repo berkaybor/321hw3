@@ -22,7 +22,7 @@ def login(request):
                 return render(request, 'drugapp/home.html')
                 
 
-        return render(request, 'users/login.html', {'msg': 'Invalid credenials', 'form': UserLoginForm()})
+        return render(request, 'users/login.html', {'msg': 'Invalid credentials', 'form': UserLoginForm()})
 
 def login_db_manager(request):
     if request.method == 'GET':

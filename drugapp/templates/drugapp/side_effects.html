@@ -1,0 +1,23 @@
+{% extends "drugapp/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">View all side effects of a specific drug</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">View</button>
+        </div>
+        {{ msg }}
+        <hr>
+        <ul>
+          {% for s in side_effects %}
+            <li>{{ s.umls_cui }}, {{ s.name }}</li>
+          {% endfor %}
+        </ul>
+    </form>
+  </div>
+{% endblock content %}
