@@ -1,0 +1,25 @@
+{% extends "drugapp/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">List all proteins that bind the same drug.</legend>
+                {{ form|crispy }}
+            </fieldset>
+            {{ msg }}
+
+            <ul>
+                {% for d in drugs %}
+                    <h3><a href="/drug/{{ d.drug }}" style="color: #5f788a">{{ d.drug }}</a></h3>
+                    <ul>
+                        {% for p in d.proteins %}
+                            <li><p>{{ p.uniprot_id }}, {{ p.protein_name }}</p></li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </ul>
+        </form>
+    </div>
+{% endblock content %}

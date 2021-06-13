@@ -16,3 +16,7 @@ class GetProtein(forms.Form):
 
 class GetSideEffect(forms.Form):
     umls_cui = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'UMLS CUI'}))
+
+
+class GetKeyword(forms.Form):
+    keyword = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Search for drugs'}))
