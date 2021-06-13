@@ -140,11 +140,6 @@ create table written_by
         unique (reaction, institution, username)
 );
 
-drop trigger if exists score;
-drop trigger if exists score2;
-drop trigger if exists score3;
-drop trigger if exists protein_deletion;
-drop trigger if exists drug_deletion;
 
 create trigger score
     before insert on written_by for each row
