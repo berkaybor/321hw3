@@ -22,7 +22,7 @@ urlpatterns = [
     path('filter_by_keyword/', views.filter_by_keyword, name='filter-by-keyword'),
     path('update_contributors/', views.update_contributors, name='update-contributors'),
     path('list_all_users/', views.list_all_users, name='list-all-users'),
-    path('filter_by_keyword/', views.filter_by_keyword, name='filter-by-keyword'),
     path('least_side_effect/', views.least_side_effect, name='least-side-effect'),
     path('rank_institutes/', views.rank_institutes, name='rank-institutes'),
+    path('drug_target_interactions/', views.drug_target_interactions, name='d-t-interactions'),
 ]

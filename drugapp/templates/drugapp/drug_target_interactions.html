@@ -1,0 +1,24 @@
+{% extends "drugapp/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="content-section">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">View all drug-protein interactions</legend>
+            {{ form|crispy }}
+        </fieldset>
+        {{ msg }}
+        <hr>
+          {% for interactions in dti %}
+            <h2>{{ interactions.0 }}</h2>
+            <h4>Interacts with:</h4>
+            {% for p in interactions.1 %}
+              <ul>{{ p }}</ul>
+            {% endfor %}
+            <hr>
+          {% endfor %}
+        </ul>
+    </form>
+  </div>
+{% endblock content %}

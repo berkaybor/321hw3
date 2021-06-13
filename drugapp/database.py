@@ -326,3 +326,25 @@ def rank_institutes_db():
     for r in tmp:
         ranks.append({"institute_name": r[0], "score": r[1]})
     return ranks
+def dt_interactions():
+    query = """
+    select drugbank_id, drug_name, uniprot_id, protein_name from drugs
+    inner join undergoes u on drugs.drugbank_id = u.drug
+    inner join binds_to bt on u.reaction = bt.reaction
+    inner join protein p on bt.protein = p.uniprot_id
+    """
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        tmp = cursor.fetchall()
+        ids = [i[0] + ", " + i[1] for i in tmp]
+        ids = list(set(ids))
+        drug_ints = []
+        for id_ in ids:
+            id_wo_name = id_.split(',')[0]
+            filtered_proteins = []
+            for i in tmp:
+                if i[0] == id_wo_name:
+                    filtered_proteins.append(i[2] + ", " + i[3])
+            drug_ints.append([id_, filtered_proteins])
+        print(drug_ints)
+        return drug_ints
