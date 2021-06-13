@@ -1,0 +1,19 @@
+{% extends "drugapp/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">List all users</legend>
+                {{ form|crispy }}
+            </fieldset>
+            {{ msg }}
+            <ul>
+                {% for u in users %}
+                    <li><p>Username: {{ u.username }}, Institution: {{ u.institution }}</p></li>
+                {% endfor %}
+            </ul>
+        </form>
+    </div>
+{% endblock content %}
