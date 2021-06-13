@@ -120,7 +120,7 @@ def return_drug_details(drugid):
     cursor.execute(stmt)
     tmp = cursor.fetchall()
     x = {"drugbank_id": tmp[0][0], "drug_name": tmp[0][1], "smiles": tmp[0][2], "description": tmp[0][3]}
-    stmt = "select side_effect from causes where drug = '{}'".format(drugid)
+    stmt = "select side_effect_name from causes left join side_effects se on se.umls_cui = causes.side_effect where drug = '{}'".format(drugid)
     cursor = connection.cursor()
     cursor.execute(stmt)
     tmp = cursor.fetchall()
@@ -128,7 +128,7 @@ def return_drug_details(drugid):
     for s in tmp:
         side.append(s[0])
     x["side_effect"] = side
-    stmt = "select protein from undergoes left join binds_to bt on undergoes.reaction = bt.reaction where drug = '{}'".format(
+    stmt = "select protein_name from undergoes left join binds_to bt on undergoes.reaction = bt.reaction left join protein p on p.uniprot_id = bt.protein where drug = '{}'".format(
         drugid)
     cursor = connection.cursor()
     cursor.execute(stmt)
