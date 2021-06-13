@@ -170,3 +170,15 @@ def get_same_protein_drugs(request):
     proteins = {"proteins": get_same_protein_drugs_db()}
     print(proteins)
     return render(request, 'drugapp/same_protein_drugs.html', proteins)
+
+
+def list_proteins(request):
+    proteins = return_proteins()
+    proteins_dict = {"proteins_list": proteins}
+    return render(request, 'drugapp/list_all_proteins.html', proteins_dict)
+
+
+def list_side_effects(request):
+    side_effects = return_side_effects()
+    side_effects_dict = {"side_effects_list": side_effects}
+    return render(request, 'drugapp/list_all_side_effects.html', side_effects_dict)

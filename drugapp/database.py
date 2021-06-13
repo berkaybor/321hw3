@@ -178,3 +178,27 @@ def get_same_protein_drugs_db():
         proteins_list.append(x)
     print(proteins_list)
     return proteins_list
+
+
+def return_proteins():
+    stmt = 'SELECT * FROM protein'
+    cursor = connection.cursor()
+    cursor.execute(stmt)
+    tmp = cursor.fetchall()
+    proteins = []
+    for u in tmp:
+        x = {"uniprot_id": u[0], "protein_name": u[2]}
+        proteins.append(x)
+    return proteins
+
+
+def return_side_effects():
+    stmt = 'SELECT * FROM side_effects'
+    cursor = connection.cursor()
+    cursor.execute(stmt)
+    tmp = cursor.fetchall()
+    side_effects = []
+    for u in tmp:
+        x = {"umls_cui": u[0], "side_effect_name": u[1]}
+        side_effects.append(x)
+    return side_effects
