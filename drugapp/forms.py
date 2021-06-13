@@ -22,3 +22,6 @@ class GetAuthorsForm(forms.Form):
     author_names = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'For example: Han, M; Song, C; Jeong, N; Hahn, HG'}))
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+
+class GetKeyword(forms.Form):
+    keyword = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Search for drugs'}))
