@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .forms import *
 from .database import *
+import hashlib
 
 
 def home(request):
@@ -166,6 +167,28 @@ def get_drugs_of_side_effect(request):
                       {'form': GetSideEffect(), 'drugs_with_side_effect': drugs_with_side_effect})
 
 
+def update_contributors(request):
+    if request.method == 'GET':
+        context = {'form': GetAuthorsForm()}
+        return render(request, 'drugapp/update_contributors.html', context)
+    elif request.method == 'POST':
+        form = GetAuthorsForm(request.POST)
+        msg = None
+        if form.is_valid():
+            f = form.cleaned_data
+            sha256password = hashlib.sha256(f['password'].encode('utf-8')).hexdigest()
+            msg = update_contributors_db(f['reaction_id'], f['author_names'], f['username'], sha256password)
+        else:
+            return render(request, 'drugapp/update_contributors.html',
+                          {'msg': 'Invalid entries', 'form': GetAuthorsForm()})
+        if msg:
+            return render(request, 'drugapp/update_contributors.html',
+                          {'msg': msg, 'form': GetAuthorsForm()})
+
+        return render(request, 'drugapp/update_contributors.html',
+                      {'msg': 'Contributors modified', 'form': GetAuthorsForm()})
+
+
 def get_same_protein_drugs(request):
     proteins = {"proteins": get_same_protein_drugs_db()}
     print(proteins)
@@ -188,3 +211,9 @@ def list_papers(request):
     papers = list_papers_db()
     papers_dict = {"papers": papers}
     return render(request, 'drugapp/list_all_papers.html', papers_dict)
+
+
+def list_all_users(request):
+    users = list_users_db()
+    users_dict = {'users': users}
+    return render(request, 'drugapp/list_all_users.html', users_dict)

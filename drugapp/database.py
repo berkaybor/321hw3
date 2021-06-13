@@ -100,6 +100,36 @@ def view_interacting_drugs_db(drug_id):
             return
         return cursor.fetchall()
 
+def update_contributors_db(reaction_id, authors, username, password):
+    with connection.cursor() as cursor:
+        query = 'update written_by set username = "{}" where reaction = "{}";'.format(username, reaction_id)
+        try:
+            cursor.execute(query)
+        except:
+            return 'Update failed1'
+
+        query = 'update users set password = "{}" where username = "{}" and institution = (select institution from written_by where reaction = "{}");'.format(password, username, reaction_id)
+        try:
+            cursor.execute(query)
+        except:
+            return 'Update failed2'
+
+        query = 'delete from author_list where doi = (select doi from written_by where reaction = "{}");'.format(reaction_id)
+        try:
+            cursor.execute(query)
+        except:
+            return 'Update failed3'
+
+        author_list = [aut.strip() for aut in authors.split(';')]
+        for aut in author_list:
+            query = 'insert into author_list values ((select doi from written_by where reaction = "{}"), "{}");'.format(reaction_id, aut)
+            try:
+                cursor.execute(query)
+            except:
+                return 'Update failed4'
+
+        return
+
 
 def return_drugs():
     stmt = 'SELECT drugbank_id, drug_name FROM drugs'
@@ -221,3 +251,14 @@ def list_papers_db():
         x = {"doi": u[3], "institution": u[1], "reaction": u[0], "contributors": authors}
         side_effects.append(x)
     return side_effects
+
+def list_users_db():
+    stmt = 'SELECT * FROM users'
+    with connection.cursor() as cursor:
+        cursor.execute(stmt)
+        tmp = cursor.fetchall()
+        users = []
+        for u in tmp:
+            x = {"username": u[0], "institution": u[1]}
+            users.append(x)
+        return users

@@ -16,3 +16,9 @@ class GetProtein(forms.Form):
 
 class GetSideEffect(forms.Form):
     umls_cui = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'UMLS CUI'}))
+
+class GetAuthorsForm(forms.Form):
+    reaction_id = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Reaction ID'}))
+    author_names = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'For example: Han, M; Song, C; Jeong, N; Hahn, HG'}))
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))

@@ -42,7 +42,7 @@
             DrugBank IDs</a>
         <a href="{% url 'delete-protein' %}" type="button" class="btn btn-outline-dark btn-block">Delete proteins using
             UniProt IDs</a>
-        <a href="#" type="button" class="btn btn-outline-dark btn-block">Update contributors using Reaction IDs</a>
+        <a href="{% url 'update-contributors' %}" type="button" class="btn btn-outline-dark btn-block">Update contributors using Reaction IDs</a>
         <a href="{% url 'list-all-drugs' %}" type="button" class="btn btn-outline-dark btn-block">View all drugs listed
             in DrugBank</a>
         <a href="{% url 'list-all-proteins' %}" type="button" class="btn btn-outline-dark btn-block">View all proteins
@@ -52,7 +52,7 @@
         <a href="#" type="button" class="btn btn-outline-dark btn-block">View all drug - target interactions</a>
         <a href="{% url 'list-all-papers' %}" type="button" class="btn btn-outline-dark btn-block">View all papers and their contributors listed
             in BindingDB</a>
-        <a href="#" type="button" class="btn btn-outline-dark btn-block">View all users in DTBank</a>
+        <a href="{% url 'list-all-users' %}" type="button" class="btn btn-outline-dark btn-block">View all users in DTBank</a>
 
     {% else %}
         <h1>Please log in</h1>
