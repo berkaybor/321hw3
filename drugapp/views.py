@@ -237,3 +237,26 @@ def filter_by_keyword(request):
             return render(request, 'drugapp/filter_by_keyword.html', {'msg': 'Wrong input', 'form': GetKeyword()})
 
         return render(request, 'drugapp/filter_by_keyword.html', {'form': GetKeyword(), 'drugs': drugs})
+
+
+def get_same_drug_proteins(request):
+    drugs = {"drugs": get_same_drug_proteins_db()}
+    return render(request, 'drugapp/same_drug_proteins.html', drugs)
+
+
+def filter_by_keyword(request):
+    if request.method == 'GET':
+        context = {'form': GetKeyword()}
+        return render(request, 'drugapp/filter_by_keyword.html', context)
+    elif request.method == 'POST':
+        form = GetKeyword(request.POST)
+        if form.is_valid():
+            f = form.cleaned_data
+            drugs = filter_by_keyword_db(f['keyword'])
+            if not drugs:
+                return render(request, 'drugapp/filter_by_keyword.html',
+                              {'msg': 'Drug not found', 'form': GetKeyword()})
+        else:
+            return render(request, 'drugapp/filter_by_keyword.html', {'msg': 'Wrong input', 'form': GetKeyword()})
+
+        return render(request, 'drugapp/filter_by_keyword.html', {'form': GetKeyword(), 'drugs': drugs})

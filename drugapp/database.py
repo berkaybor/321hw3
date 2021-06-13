@@ -297,3 +297,39 @@ def filter_by_keyword_db(keyword):
     for d in tmp:
         drugs.append(d[0])
     return drugs
+
+
+def get_same_drug_proteins_db():
+    stmt = 'select drug, count(protein) from binds_to left join undergoes u on binds_to.reaction = u.reaction group by drug having count(protein) > 1'
+    cursor = connection.cursor()
+    cursor.execute(stmt)
+    tmp = cursor.fetchall()
+    drugs = []
+    for u in tmp:
+        drugs.append(u[0])
+
+    drugs_list = []
+    for d in drugs:
+        stmt = 'select uniprot_id, protein_name from binds_to left join undergoes u on binds_to.reaction = u.reaction left join protein p on p.uniprot_id = binds_to.protein where drug = "{}"'.format(
+            d)
+        cursor = connection.cursor()
+        cursor.execute(stmt)
+        tmp = cursor.fetchall()
+        x = {}
+        y = []
+        for p in tmp:
+            y.append({"uniprot_id": p[0], "protein_name": p[1]})
+        x = {"drug": d, "proteins": y}
+        drugs_list.append(x)
+    return drugs_list
+
+
+def filter_by_keyword_db(keyword):
+    stmt = "select drugbank_id from drugs where description like '%{}%'".format(keyword)
+    cursor = connection.cursor()
+    cursor.execute(stmt)
+    tmp = cursor.fetchall()
+    drugs = []
+    for d in tmp:
+        drugs.append(d[0])
+    return drugs
