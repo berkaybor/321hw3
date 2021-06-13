@@ -9,7 +9,6 @@
             {{ form|crispy }}
         </fieldset>
         {{ msg }}
-        <hr>
         <ul>
             {% for d in drugs_list %}
                 <li><a href="/drug/{{ d.drugbank_id }}"
