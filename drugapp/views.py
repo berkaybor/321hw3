@@ -182,3 +182,9 @@ def list_side_effects(request):
     side_effects = return_side_effects()
     side_effects_dict = {"side_effects_list": side_effects}
     return render(request, 'drugapp/list_all_side_effects.html', side_effects_dict)
+
+
+def list_papers(request):
+    papers = list_papers_db()
+    papers_dict = {"papers": papers}
+    return render(request, 'drugapp/list_all_papers.html', papers_dict)

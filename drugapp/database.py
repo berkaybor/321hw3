@@ -176,7 +176,6 @@ def get_same_protein_drugs_db():
             y.append(d[0])
         x = {"protein": p, "drugs": y}
         proteins_list.append(x)
-    print(proteins_list)
     return proteins_list
 
 
@@ -200,5 +199,25 @@ def return_side_effects():
     side_effects = []
     for u in tmp:
         x = {"umls_cui": u[0], "side_effect_name": u[1]}
+        side_effects.append(x)
+    return side_effects
+
+
+def list_papers_db():
+    stmt = 'SELECT * FROM written_by'
+    cursor = connection.cursor()
+    cursor.execute(stmt)
+    tmp = cursor.fetchall()
+    side_effects = []
+    for u in tmp:
+        doi = u[3]
+        stmt = 'select * from author_list where doi = "{}"'.format(doi)
+        cursor = connection.cursor()
+        cursor.execute(stmt)
+        tmp2 = cursor.fetchall()
+        authors = []
+        for a in tmp2:
+            authors.append(a[1])
+        x = {"doi": u[3], "institution": u[1], "reaction": u[0], "contributors": authors}
         side_effects.append(x)
     return side_effects
