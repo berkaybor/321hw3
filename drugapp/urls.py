@@ -15,7 +15,9 @@ urlpatterns = [
     path('list_all_drugs/', views.listDrugs, name='list-all-drugs'),
     path('drugs_of_side_effect/', views.get_drugs_of_side_effect, name='drugs-of-side-effect'),
     path('same_protein_drugs/', views.get_same_protein_drugs, name='same-protein-drugs'),
+    path('same_drug_proteins/', views.get_same_drug_proteins, name='same-drug-proteins'),
     path('list_all_proteins/', views.list_proteins, name='list-all-proteins'),
     path('list_all_side_effects/', views.list_side_effects, name='list-all-side-effects'),
     path('list_all_papers/', views.list_papers, name='list-all-papers'),
+    path('filter_by_keyword/', views.filter_by_keyword, name='filter-by-keyword'),
 ]

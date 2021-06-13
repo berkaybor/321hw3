@@ -168,7 +168,6 @@ def get_drugs_of_side_effect(request):
 
 def get_same_protein_drugs(request):
     proteins = {"proteins": get_same_protein_drugs_db()}
-    print(proteins)
     return render(request, 'drugapp/same_protein_drugs.html', proteins)
 
 
@@ -188,3 +187,26 @@ def list_papers(request):
     papers = list_papers_db()
     papers_dict = {"papers": papers}
     return render(request, 'drugapp/list_all_papers.html', papers_dict)
+
+
+def get_same_drug_proteins(request):
+    drugs = {"drugs": get_same_drug_proteins_db()}
+    return render(request, 'drugapp/same_drug_proteins.html', drugs)
+
+
+def filter_by_keyword(request):
+    if request.method == 'GET':
+        context = {'form': GetKeyword()}
+        return render(request, 'drugapp/filter_by_keyword.html', context)
+    elif request.method == 'POST':
+        form = GetKeyword(request.POST)
+        if form.is_valid():
+            f = form.cleaned_data
+            drugs = filter_by_keyword_db(f['keyword'])
+            if not drugs:
+                return render(request, 'drugapp/filter_by_keyword.html',
+                              {'msg': 'Drug not found', 'form': GetKeyword()})
+        else:
+            return render(request, 'drugapp/filter_by_keyword.html', {'msg': 'Wrong input', 'form': GetKeyword()})
+
+        return render(request, 'drugapp/filter_by_keyword.html', {'form': GetKeyword(), 'drugs': drugs})
