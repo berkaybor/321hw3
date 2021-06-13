@@ -188,10 +188,12 @@ def update_contributors(request):
         return render(request, 'drugapp/update_contributors.html',
                       {'msg': 'Contributors modified', 'form': GetAuthorsForm()})
 
+def drug_target_interactions(request):
+    return render(request, 'drugapp/drug_target_interactions.html', {"dti": dt_interactions()})
+
 
 def get_same_protein_drugs(request):
     proteins = {"proteins": get_same_protein_drugs_db()}
-    print(proteins)
     return render(request, 'drugapp/same_protein_drugs.html', proteins)
 
 

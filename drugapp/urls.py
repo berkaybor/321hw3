@@ -20,4 +20,5 @@ urlpatterns = [
     path('list_all_papers/', views.list_papers, name='list-all-papers'),
     path('update_contributors/', views.update_contributors, name='update-contributors'),
     path('list_all_users/', views.list_all_users, name='list-all-users'),
+    path('drug_target_interactions/', views.drug_target_interactions, name='d-t-interactions'),
 ]
