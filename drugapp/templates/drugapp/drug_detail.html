@@ -5,8 +5,9 @@
     <h1>Details of {{ drug_name }}</h1>
 
     <br>
-
-    <p>{{ drugbank_id }}, {{ drug_name }}, {{ description }}</p>
-
+    <p>DrugBank ID: {{ drugbank_id }}<br>Drug
+        Name: {{ drug_name }}<br>Description: {{ description }}<br>SMILES: {{ smiles }}<br>Targets:
+        {% for p in protein %} {{ p }}, {% endfor %}
+  <br>Side Effects: {% for s in side_effect %} {{ s }}, {% endfor %}</p>
 
 {% endblock content %}

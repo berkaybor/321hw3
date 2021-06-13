@@ -6,6 +6,7 @@ from .database import *
 def home(request):
     return render(request, 'drugapp/home.html')
 
+
 def update_reaction_affinity(request):
     if request.method == 'GET':
         context = {'form': ReactionAffinityEditForm()}
@@ -112,10 +113,9 @@ def view_interacting_targets(request):
 def listDrugs(request):
     drugs = return_drugs()
     drugs_dict = {"drugs_list": drugs}
-    return render(request, 'drugapp/home.html', drugs_dict)
+    return render(request, 'drugapp/list_all_drugs.html', drugs_dict)
 
 
 def showDrug(request, drugid):
-    anan = return_drug_details(drugid)
-    drug_dict = {"drug_details": anan}
-    return render(request, 'drugapp/drug_detail.html', anan)
+    drug_details = return_drug_details(drugid)
+    return render(request, 'drugapp/drug_detail.html', drug_details)

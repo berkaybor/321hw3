@@ -8,7 +8,7 @@
   {% if request.session.user_logged_in %}
     <h1>Logged in as user</h1>
     <hr>
-    <a href="#" type="button" class="btn btn-outline-dark btn-block">View all drugs</a>
+    <a href="{% url 'list-all-drugs' %}" type="button" class="btn btn-outline-dark btn-block">View all drugs</a>
     <a href="{% url 'drug-interactions' %}" type="button" type="button" class="btn btn-outline-dark btn-block">View all interactions of a specific drug</a>
     <a href="{% url 'side-effects' %}" type="button" class="btn btn-outline-dark btn-block">View all side effects of a specific drug</a>
     <a href="{% url 'interacting-targets' %}" type="button" class="btn btn-outline-dark btn-block">View all interacting targets of a specific drug</a>
@@ -54,10 +54,6 @@
                 <button class="btn btn-outline-info" type="submit">Press to see the list of drugs</button>
             </div>
 
-            {% for d in drugs_list %}
-                <p><a href="/drug/{{ d.drugbank_id }}"
-                      style="color: #5f788a">{{ d.drugbank_id }}, {{ d.drug_name }}, {{ d.description }}</a></p>
-            {% endfor %}
 
             {{ user_logged }}
         </form>
