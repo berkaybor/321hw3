@@ -19,5 +19,7 @@ urlpatterns = [
     path('list_all_proteins/', views.list_proteins, name='list-all-proteins'),
     path('list_all_side_effects/', views.list_side_effects, name='list-all-side-effects'),
     path('list_all_papers/', views.list_papers, name='list-all-papers'),
+    path('update_contributors/', views.update_contributors, name='update-contributors'),
+    path('list_all_users/', views.list_all_users, name='list-all-users'),
     path('filter_by_keyword/', views.filter_by_keyword, name='filter-by-keyword'),
 ]
