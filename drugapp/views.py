@@ -145,3 +145,22 @@ def view_interacting_drugs(request):
         interacting_drugs = [{'drugbank_id': t[0], 'drug_name': t[1]} for t in interacting_drugs]
         return render(request, 'drugapp/interacting_drugs.html',
                       {'form': GetProtein(), 'interacting_drugs': interacting_drugs})
+
+
+def get_drugs_of_side_effect(request):
+    if request.method == 'GET':
+        context = {'form': GetSideEffect()}
+        return render(request, 'drugapp/drugs_of_side_effect.html', context)
+    elif request.method == 'POST':
+        form = GetSideEffect(request.POST)
+        if form.is_valid():
+            f = form.cleaned_data
+            drugs_with_side_effect = view_drugs_of_side_effect_db(f['umls_cui'])
+            if not drugs_with_side_effect:
+                return render(request, 'drugapp/drugs_of_side_effect.html',
+                              {'msg': 'Drug not found', 'form': GetSideEffect()})
+        else:
+            return render(request, 'drugapp/drugs_of_side_effect.html', {'msg': 'Wrong input', 'form': GetSideEffect()})
+
+        return render(request, 'drugapp/drugs_of_side_effect.html',
+                      {'form': GetSideEffect(), 'drugs_with_side_effect': drugs_with_side_effect})

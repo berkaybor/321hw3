@@ -5,13 +5,18 @@
     <form method="POST">
         {% csrf_token %}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">List all drugs.</legend>
+            <legend class="border-bottom mb-4">View drugs that have a specific side effect</legend>
             {{ form|crispy }}
         </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">View</button>
+        </div>
         {{ msg }}
         <hr>
+
+
         <ul>
-            {% for d in drugs_list %}
+            {% for d in drugs_with_side_effect %}
                 <li><a href="/drug/{{ d.drugbank_id }}"
                       style="color: #5f788a">{{ d.drugbank_id }}, {{ d.drug_name }}</a></li>
             {% endfor %}

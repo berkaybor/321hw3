@@ -9,3 +9,6 @@ class GetDrugForm(forms.Form):
 
 class GetProtein(forms.Form):
     uniprot_id = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'UniProt ID'}))
+
+class GetSideEffect(forms.Form):
+    umls_cui = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'UMLS CUI'}))

@@ -136,6 +136,16 @@ def return_drug_details(drugid):
     targets = []
     for p in tmp:
         targets.append(p[0])
-    print(targets)
     x["protein"] = targets
     return x
+
+def view_drugs_of_side_effect_db(side_effect):
+    stmt = 'select drugbank_id, drug_name from causes left join side_effects se on se.umls_cui = causes.side_effect left join drugs d on d.drugbank_id = causes.drug where umls_cui = "{}"'.format(side_effect)
+    cursor = connection.cursor()
+    cursor.execute(stmt)
+    tmp = cursor.fetchall()
+    drugs = []
+    for u in tmp:
+        x = {"drugbank_id": u[0], "drug_name": u[1]}
+        drugs.append(x)
+    return drugs

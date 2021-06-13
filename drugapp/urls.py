@@ -13,4 +13,6 @@ urlpatterns = [
     path('interacting_targets/', views.view_interacting_targets, name='interacting-targets'),
     path('interacting_drugs/', views.view_interacting_drugs, name='interacting-drugs'),
     path('list_all_drugs/', views.listDrugs, name='list-all-drugs'),
+    path('drugs_of_side_effect/', views.get_drugs_of_side_effect, name='drugs-of-side-effect'),
+
 ]
