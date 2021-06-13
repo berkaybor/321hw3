@@ -164,3 +164,9 @@ def get_drugs_of_side_effect(request):
 
         return render(request, 'drugapp/drugs_of_side_effect.html',
                       {'form': GetSideEffect(), 'drugs_with_side_effect': drugs_with_side_effect})
+
+
+def get_same_protein_drugs(request):
+    proteins = {"proteins": get_same_protein_drugs_db()}
+    print(proteins)
+    return render(request, 'drugapp/same_protein_drugs.html', proteins)

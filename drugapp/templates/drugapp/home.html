@@ -13,7 +13,7 @@
     <a href="{% url 'side-effects' %}" type="button" class="btn btn-outline-dark btn-block">View all side effects of a specific drug</a>
     <a href="{% url 'interacting-targets' %}" type="button" class="btn btn-outline-dark btn-block">View all interacting targets of a specific drug</a>
     <a href="{% url 'interacting-drugs' %}" type="button" class="btn btn-outline-dark btn-block">View interacting drugs of a specific protein</a>
-    <button type="button" class="btn btn-outline-dark btn-block">View drugs that affect the same protein</button>
+    <a href="{% url 'same-protein-drugs' %}" type="button" class="btn btn-outline-dark btn-block">View drugs that affect the same protein</a>
     <button type="button" class="btn btn-outline-dark btn-block">View proteins that bind the same drug</button>
     <a href="{% url 'drugs-of-side-effect' %}" type="button" class="btn btn-outline-dark btn-block">View drugs that have a specific side effect</a>
     <button type="button" class="btn btn-outline-dark btn-block">View the drug(s) with the least amount of side effects that interact with a specific protein</button>

@@ -120,7 +120,8 @@ def return_drug_details(drugid):
     cursor.execute(stmt)
     tmp = cursor.fetchall()
     x = {"drugbank_id": tmp[0][0], "drug_name": tmp[0][1], "smiles": tmp[0][2], "description": tmp[0][3]}
-    stmt = "select side_effect_name from causes left join side_effects se on se.umls_cui = causes.side_effect where drug = '{}'".format(drugid)
+    stmt = "select side_effect_name from causes left join side_effects se on se.umls_cui = causes.side_effect where drug = '{}'".format(
+        drugid)
     cursor = connection.cursor()
     cursor.execute(stmt)
     tmp = cursor.fetchall()
@@ -139,8 +140,10 @@ def return_drug_details(drugid):
     x["protein"] = targets
     return x
 
+
 def view_drugs_of_side_effect_db(side_effect):
-    stmt = 'select drugbank_id, drug_name from causes left join side_effects se on se.umls_cui = causes.side_effect left join drugs d on d.drugbank_id = causes.drug where umls_cui = "{}"'.format(side_effect)
+    stmt = 'select drugbank_id, drug_name from causes left join side_effects se on se.umls_cui = causes.side_effect left join drugs d on d.drugbank_id = causes.drug where umls_cui = "{}"'.format(
+        side_effect)
     cursor = connection.cursor()
     cursor.execute(stmt)
     tmp = cursor.fetchall()
@@ -149,3 +152,29 @@ def view_drugs_of_side_effect_db(side_effect):
         x = {"drugbank_id": u[0], "drug_name": u[1]}
         drugs.append(x)
     return drugs
+
+
+def get_same_protein_drugs_db():
+    stmt = 'select protein,count(drug) from binds_to left join undergoes u on binds_to.reaction = u.reaction group by (protein) having count(drug) > 1'
+    cursor = connection.cursor()
+    cursor.execute(stmt)
+    tmp = cursor.fetchall()
+    proteins = []
+    for u in tmp:
+        proteins.append(u[0])
+
+    proteins_list = []
+    for p in proteins:
+        stmt = 'select drug from binds_to left join undergoes u on binds_to.reaction = u.reaction where protein = "{}"'.format(
+            p)
+        cursor = connection.cursor()
+        cursor.execute(stmt)
+        tmp = cursor.fetchall()
+        x = {}
+        y = []
+        for d in tmp:
+            y.append(d[0])
+        x = {"protein": p, "drugs": y}
+        proteins_list.append(x)
+    print(proteins_list)
+    return proteins_list

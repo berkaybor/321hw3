@@ -15,7 +15,8 @@
         <hr>
         <ul>
           {% for d in drugs %}
-            <li>{{ d }}</li>
+            <li><a href="/drug/{{ d }}"
+                   style="color: #5f788a">{{ d }}</a></li>
           {% endfor %}
         </ul>
     </form>
