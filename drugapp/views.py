@@ -18,9 +18,11 @@ def update_reaction_affinity(request):
             msg = edit_reaction_affinity(f['reaction_id'], f['affinity'])
 
         if msg:
-            return render(request, 'drugapp/update_reaction_affinity.html', {'msg': msg, 'form': ReactionAffinityEditForm()})  
+            return render(request, 'drugapp/update_reaction_affinity.html',
+                          {'msg': msg, 'form': ReactionAffinityEditForm()})
 
-        return render(request, 'drugapp/update_reaction_affinity.html', {'msg': 'Reaction afinity modified', 'form': ReactionAffinityEditForm()})
+        return render(request, 'drugapp/update_reaction_affinity.html',
+                      {'msg': 'Reaction afinity modified', 'form': ReactionAffinityEditForm()})
 
 
 def delete_drug(request):
@@ -66,7 +68,8 @@ def drug_interactions(request):
             f = form.cleaned_data
             interacted_drugs = drug_interactions_db(f['drug_id'])
             if not interacted_drugs:
-                return render(request, 'drugapp/view_all_interactions.html', {'msg': 'Drug not found', 'form': GetDrugForm()})
+                return render(request, 'drugapp/view_all_interactions.html',
+                              {'msg': 'Drug not found', 'form': GetDrugForm()})
         else:
             return render(request, 'drugapp/view_all_interactions.html', {'msg': 'Wrong input', 'form': GetDrugForm()})
 
@@ -102,12 +105,14 @@ def view_interacting_targets(request):
             f = form.cleaned_data
             interacting_targets = view_interacting_targets_db(f['drug_id'])
             if not interacting_targets:
-                return render(request, 'drugapp/interacting_targets.html', {'msg': 'Drug not found', 'form': GetDrugForm()})
+                return render(request, 'drugapp/interacting_targets.html',
+                              {'msg': 'Drug not found', 'form': GetDrugForm()})
         else:
             return render(request, 'drugapp/interacting_targets.html', {'msg': 'Wrong input', 'form': GetDrugForm()})
 
         interacting_targets = [{'uniprot_id': t[0], 'name': t[1]} for t in interacting_targets]
-        return render(request, 'drugapp/interacting_targets.html', {'form': GetDrugForm(), 'interacting_targets': interacting_targets})
+        return render(request, 'drugapp/interacting_targets.html',
+                      {'form': GetDrugForm(), 'interacting_targets': interacting_targets})
 
 
 def listDrugs(request):
@@ -119,3 +124,24 @@ def listDrugs(request):
 def showDrug(request, drugid):
     drug_details = return_drug_details(drugid)
     return render(request, 'drugapp/drug_detail.html', drug_details)
+
+
+def view_interacting_drugs(request):
+    if request.method == 'GET':
+        context = {'form': GetProtein()}
+        return render(request, 'drugapp/interacting_drugs.html', context)
+    elif request.method == 'POST':
+        form = GetProtein(request.POST)
+        if form.is_valid():
+            f = form.cleaned_data
+            interacting_drugs = view_interacting_drugs_db(f['uniprot_id'])
+            if not interacting_drugs:
+                return render(request, 'drugapp/interacting_drugs.html',
+                              {'msg': 'Protein not found', 'form': GetProtein()})
+        else:
+            return render(request, 'drugapp/interacting_drugs.html',
+                          {'msg': 'Wrong input', 'form': GetProtein()})
+
+        interacting_drugs = [{'drugbank_id': t[0], 'drug_name': t[1]} for t in interacting_drugs]
+        return render(request, 'drugapp/interacting_drugs.html',
+                      {'form': GetProtein(), 'interacting_drugs': interacting_drugs})

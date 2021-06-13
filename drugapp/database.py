@@ -88,6 +88,19 @@ def view_interacting_targets_db(drug_id):
         return cursor.fetchall()
 
 
+def view_interacting_drugs_db(drug_id):
+    query = """
+    select drugbank_id, drug_name from binds_to left join undergoes u on binds_to.reaction = u.reaction left join drugs d on d.drugbank_id = u.drug where protein = 
+'{}'""".format(
+        drug_id)
+    with connection.cursor() as cursor:
+        try:
+            cursor.execute(query)
+        except:
+            return
+        return cursor.fetchall()
+
+
 def return_drugs():
     stmt = 'SELECT drugbank_id, drug_name FROM drugs'
     cursor = connection.cursor()

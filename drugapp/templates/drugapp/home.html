@@ -12,7 +12,7 @@
     <a href="{% url 'drug-interactions' %}" type="button" type="button" class="btn btn-outline-dark btn-block">View all interactions of a specific drug</a>
     <a href="{% url 'side-effects' %}" type="button" class="btn btn-outline-dark btn-block">View all side effects of a specific drug</a>
     <a href="{% url 'interacting-targets' %}" type="button" class="btn btn-outline-dark btn-block">View all interacting targets of a specific drug</a>
-    <button type="button" class="btn btn-outline-dark btn-block">View interacting drugs of a specific protein</button>
+    <a href="{% url 'interacting-drugs' %}" type="button" class="btn btn-outline-dark btn-block">View interacting drugs of a specific protein</a>
     <button type="button" class="btn btn-outline-dark btn-block">View drugs that affect the same protein</button>
     <button type="button" class="btn btn-outline-dark btn-block">View proteins that bind the same drug</button>
     <button type="button" class="btn btn-outline-dark btn-block">View drugs that have a specific side effect</button>
@@ -39,26 +39,7 @@
   {% else %}
     <h1>Please log in</h1>
   {% endif %}
-  
-    <h1>Home</h1>
 
-    <br>
-    <div class="container">
-        <form action="/listDrugs/" method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Drugs</legend>
-                {{ form|crispy }}
-            </fieldset>
-            <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Press to see the list of drugs</button>
-            </div>
-
-
-            {{ user_logged }}
-        </form>
-
-    </div>
 
 
 
