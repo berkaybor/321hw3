@@ -260,3 +260,26 @@ def filter_by_keyword(request):
             return render(request, 'drugapp/filter_by_keyword.html', {'msg': 'Wrong input', 'form': GetKeyword()})
 
         return render(request, 'drugapp/filter_by_keyword.html', {'form': GetKeyword(), 'drugs': drugs})
+
+
+def least_side_effect(request):
+    if request.method == 'GET':
+        context = {'form': GetProtein()}
+        return render(request, 'drugapp/least_side_effects.html', context)
+    elif request.method == 'POST':
+        form = GetProtein(request.POST)
+        if form.is_valid():
+            f = form.cleaned_data
+            drugs = least_side_effect_db(f['uniprot_id'])
+            if not drugs:
+                return render(request, 'drugapp/least_side_effects.html',
+                              {'msg': 'Protein not found', 'form': GetProtein()})
+        else:
+            return render(request, 'drugapp/least_side_effects.html', {'msg': 'Wrong input', 'form': GetProtein()})
+
+        return render(request, 'drugapp/least_side_effects.html', {'form': GetProtein(), 'drugs': drugs})
+
+
+def rank_institutes(request):
+    ranks = {"ranks": rank_institutes_db()}
+    return render(request, 'drugapp/rank_institutes.html', ranks)

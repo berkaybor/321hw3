@@ -13,7 +13,7 @@
                 {% for p in papers %}
                     <li><p>DOI: {{ p.doi }}, Institution: {{ p.institution }}, Reaction: {{ p.reaction }}</p>
                     <p>Contributors:
-                    {% for c in p.contributors %}{{ c }}
+                    {% for c in p.contributors %}{{ c }};
                     {% endfor %}
                     </p>
                     </li>

@@ -22,13 +22,12 @@
         <a href="{% url 'same-drug-proteins' %}" type="button" class="btn btn-outline-dark btn-block">View proteins that bind the same drug</a>
         <a href="{% url 'drugs-of-side-effect' %}" type="button" class="btn btn-outline-dark btn-block">View drugs that
             have a specific side effect</a>
-        <button type="button" class="btn btn-outline-dark btn-block">View the drug(s) with the least amount of side
-            effects that interact with a specific protein
-        </button>
-        <button type="button" class="btn btn-outline-dark btn-block">View the DOI and contributors of papers</button>
-        <button type="button" class="btn btn-outline-dark btn-block">View rankings of institutes according to their
+        <a href="{% url 'least-side-effect' %}" type="button" class="btn btn-outline-dark btn-block">View the drug(s) with the least amount of side
+            effects that interact with a specific protein</a>
+        <a href="{% url 'list-all-papers' %}" type="button" class="btn btn-outline-dark btn-block">View the DOI and contributors of papers</a>
+        <a href="{% url 'rank-institutes' %}" type="button" class="btn btn-outline-dark btn-block">View rankings of institutes according to their
             total scores (Decreasing order)
-        </button>
+        </a>
         <a href="{% url 'filter-by-keyword' %}" type="button" class="btn btn-outline-dark btn-block">Filter interacting targets of a specific drug by keyword
         </a>
 

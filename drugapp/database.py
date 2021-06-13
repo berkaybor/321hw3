@@ -100,6 +100,7 @@ def view_interacting_drugs_db(drug_id):
             return
         return cursor.fetchall()
 
+
 def update_contributors_db(reaction_id, authors, username, password):
     with connection.cursor() as cursor:
         query = 'update written_by set username = "{}" where reaction = "{}";'.format(username, reaction_id)
@@ -108,13 +109,15 @@ def update_contributors_db(reaction_id, authors, username, password):
         except:
             return 'Update failed1'
 
-        query = 'update users set password = "{}" where username = "{}" and institution = (select institution from written_by where reaction = "{}");'.format(password, username, reaction_id)
+        query = 'update users set password = "{}" where username = "{}" and institution = (select institution from written_by where reaction = "{}");'.format(
+            password, username, reaction_id)
         try:
             cursor.execute(query)
         except:
             return 'Update failed2'
 
-        query = 'delete from author_list where doi = (select doi from written_by where reaction = "{}");'.format(reaction_id)
+        query = 'delete from author_list where doi = (select doi from written_by where reaction = "{}");'.format(
+            reaction_id)
         try:
             cursor.execute(query)
         except:
@@ -122,7 +125,8 @@ def update_contributors_db(reaction_id, authors, username, password):
 
         author_list = [aut.strip() for aut in authors.split(';')]
         for aut in author_list:
-            query = 'insert into author_list values ((select doi from written_by where reaction = "{}"), "{}");'.format(reaction_id, aut)
+            query = 'insert into author_list values ((select doi from written_by where reaction = "{}"), "{}");'.format(
+                reaction_id, aut)
             try:
                 cursor.execute(query)
             except:
@@ -252,6 +256,7 @@ def list_papers_db():
         side_effects.append(x)
     return side_effects
 
+
 def list_users_db():
     stmt = 'SELECT * FROM users'
     with connection.cursor() as cursor:
@@ -263,41 +268,6 @@ def list_users_db():
             users.append(x)
         return users
 
-def get_same_drug_proteins_db():
-    stmt = 'select drug, count(protein) from binds_to left join undergoes u on binds_to.reaction = u.reaction group by drug having count(protein) > 1'
-    cursor = connection.cursor()
-    cursor.execute(stmt)
-    tmp = cursor.fetchall()
-    drugs = []
-    for u in tmp:
-        drugs.append(u[0])
-
-    drugs_list = []
-    for d in drugs:
-        stmt = 'select uniprot_id, protein_name from binds_to left join undergoes u on binds_to.reaction = u.reaction left join protein p on p.uniprot_id = binds_to.protein where drug = "{}"'.format(
-            d)
-        cursor = connection.cursor()
-        cursor.execute(stmt)
-        tmp = cursor.fetchall()
-        x = {}
-        y = []
-        for p in tmp:
-            y.append({"uniprot_id": p[0], "protein_name": p[1]})
-        x = {"drug": d, "proteins": y}
-        drugs_list.append(x)
-    return drugs_list
-
-
-def filter_by_keyword_db(keyword):
-    stmt = "select drugbank_id from drugs where description like '%{}%'".format(keyword)
-    cursor = connection.cursor()
-    cursor.execute(stmt)
-    tmp = cursor.fetchall()
-    drugs = []
-    for d in tmp:
-        drugs.append(d[0])
-    return drugs
-
 
 def get_same_drug_proteins_db():
     stmt = 'select drug, count(protein) from binds_to left join undergoes u on binds_to.reaction = u.reaction group by drug having count(protein) > 1'
@@ -333,3 +303,26 @@ def filter_by_keyword_db(keyword):
     for d in tmp:
         drugs.append(d[0])
     return drugs
+
+
+def least_side_effect_db(uniprot_id):
+    stmt = "select u.drug from binds_to left join undergoes u on binds_to.reaction = u.reaction left join causes c on u.drug = c.drug where protein = '{}' group by u.drug order by count(side_effect)".format(
+        uniprot_id)
+    cursor = connection.cursor()
+    cursor.execute(stmt)
+    tmp = cursor.fetchall()
+    drugs = []
+    for d in tmp:
+        drugs.append(d[0])
+    return drugs
+
+
+def rank_institutes_db():
+    stmt = "select * from institute order by score desc"
+    cursor = connection.cursor()
+    cursor.execute(stmt)
+    tmp = cursor.fetchall()
+    ranks = []
+    for r in tmp:
+        ranks.append({"institute_name": r[0], "score": r[1]})
+    return ranks
